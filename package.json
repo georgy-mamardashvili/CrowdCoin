@@ -7,7 +7,7 @@
     "compile": "node ethereum/compile.js",
     "deploy": "node ethereum/deploy.js",
     "test": "mocha",
-    "dev": "next dev"
+    "dev": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "ganache-cli": "^6.12.2",
     "mocha": "^10.0.0",
     "next": "^12.1.6",
+    "next-routes": "^1.4.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "semantic-ui-css": "^2.4.1",
