@@ -21,8 +21,8 @@ beforeEach(async () => {
         .deploy({
             data: compiledFactory.evm.bytecode.object,
         })
-        .send({ from: admin, gas: '1200000' });
-    await factory.methods.createCompaign(MIN_CONTRIBUTION).send({
+        .send({ from: admin, gas: '1400000' });
+    await factory.methods.createCampaign(MIN_CONTRIBUTION).send({
         from: admin,
         gas: '1000000',
     });
@@ -68,7 +68,7 @@ describe('Campaigns', () => {
     it('allows a manager to make a payment request', async () => {
         const SAMPLE_DESCR = 'Buy batteries';
         await campaign.methods
-            .createRequest(SAMPLE_DESCR, '100', accounts[2])
+            .createRequest(SAMPLE_DESCR, MIN_CONTRIBUTION, accounts[2])
             .send({
                 from: admin,
                 gas: '1000000',
@@ -107,6 +107,15 @@ describe('Campaigns', () => {
 
         const request = await campaign.methods.requests(0).call();
         assert.equal(1, request.approvalCount);
+
+        const summary = await campaign.methods.getSummary().call();
+        assert.equal(summary[0], MIN_CONTRIBUTION);
+        assert.equal(summary[1], web3.utils.toWei('10', 'ether'));
+        assert.equal(summary[2], 1);
+        assert.equal(summary[3], 1);
+        assert.equal(summary[4], admin);
+        const reqCount = await campaign.methods.getRequestsCount().call();
+        assert.equal(reqCount, 1);
 
         let balanceBefore = await web3.eth.getBalance(targetAddress);
         balanceBefore = web3.utils.fromWei(balanceBefore, 'ether');
