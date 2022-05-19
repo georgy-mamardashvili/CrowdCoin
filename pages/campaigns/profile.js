@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Card, Button } from 'semantic-ui-react';
+import { Card, Button, Grid, GridColumn, Header } from 'semantic-ui-react';
+
 import Campaign from '../../ethereum/models/campaign';
-import Layout from '../../components/Layout';
 import web3 from '../../ethereum/web3';
+
+import Layout from '../../components/Layout';
+import ContributeForm from '../../components/ContibuteForm';
 
 class CampaignProfile extends Component {
     static async getInitialProps(props) {
@@ -52,8 +55,20 @@ class CampaignProfile extends Component {
     render() {
         return (
             <Layout>
-                <h3>Campaign: {this.props.campaignAddress}</h3>
-                {this.renderCards()}
+                <Header
+                    as='h2'
+                    content='Campaign Profile'
+                    subheader={`Address: ${this.props.campaignAddress}`}
+                    textAlign='center'
+                />
+                <Grid>
+                    <Grid.Column width={10}>
+                        {this.renderCards()}
+                    </Grid.Column>
+                    <Grid.Column width={6}>
+                        <ContributeForm address={this.props.campaignAddress}/>
+                    </Grid.Column>
+                </Grid>
             </Layout>
         );
     };
