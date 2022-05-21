@@ -4,7 +4,7 @@ const compiledFactory = require('./build/CampaignFactory.json');
  
 provider = new HDWalletProvider(
   'YOUR_MNEMONIC',
-  'https://rinkeby.infura.io/v3/bfdb3a15d4274554879781c796b103e0'
+  'YOUR_INFURA_LINK'
 );
  
 const web3 = new Web3(provider);
